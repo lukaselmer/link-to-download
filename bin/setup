@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo Copy example settings if they do not exist
+cp -n .env.example .env
+
+echo Setting pre commit hook
+cat .git/hooks/pre-commit > /dev/null || ln -s ../../bin/fix .git/hooks/pre-commit
+
+npm rebuild node-sass

@@ -8,6 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func downloadLinkHandler(c *gin.Context) {
+	apiKey := os.Getenv("API_KEY")
+	c.String(http.StatusOK, string(apiKey))
+}
+
 func main() {
 	port := os.Getenv("PORT")
 
@@ -24,9 +29,7 @@ func main() {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
-	router.GET("/download-link", func(c *gin.Context) {
-		c.String(http.StatusOK, string("link downloaded"))
-	})
+	router.GET("/download-link", downloadLinkHandler)
 
 	router.Run(":" + port)
 }
