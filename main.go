@@ -24,5 +24,9 @@ func main() {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
+	router.GET("/download-link", func(c *gin.Context) {
+		c.String(http.StatusOK, string("link downloaded"))
+	})
+
 	router.Run(":" + port)
 }
