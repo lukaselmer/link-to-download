@@ -78,7 +78,7 @@ func downloadHandler(c *gin.Context) {
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Print("Config from .env file was not loaded")
 	}
 
 	port := os.Getenv("PORT")
