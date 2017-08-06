@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -108,11 +109,11 @@ func uploadToS3(filename string) {
 	fmt.Printf("response %s", awsutil.StringValue(resp))
 }
 
-func storeHandler(c *gin.Context) {
+func storeURL(c *gin.Context, url string) {
 	apiKey := os.Getenv("API_KEY")
 	apiKeyParam := c.Query("api_key")
 	if apiKey == apiKeyParam {
-		response, success := handleDownload(c.Query("url"))
+		response, success := handleDownload(url)
 		if success {
 			c.JSON(http.StatusOK, response)
 		} else {
@@ -123,9 +124,30 @@ func storeHandler(c *gin.Context) {
 	}
 }
 
+func storeHandler(c *gin.Context) {
+	storeURL(c, c.Query("url"))
+}
+
 func downloadHandler(c *gin.Context) {
 	filepath := fmt.Sprintf("tmp/%s", c.Param("filename"))
 	c.File(filepath)
+}
+
+func extractURL(message string) string {
+	re := regexp.MustCompile("(https:\\/\\/\\S+\\.pdf)")
+	match := re.FindStringSubmatch(message)
+	if len(match) >= 2 {
+		return match[1]
+	}
+	return ""
+}
+
+func storeFromTextHandler(c *gin.Context) {
+	message := c.PostForm("message")
+	url := extractURL(message)
+	if len(url) > 0 {
+		storeURL(c, url)
+	}
 }
 
 func main() {
@@ -151,6 +173,7 @@ func main() {
 
 	router.GET("/download/:filename", downloadHandler)
 	router.GET("/store", storeHandler)
+	router.POST("/store-from-text", storeFromTextHandler)
 
 	router.Run(":" + port)
 }
