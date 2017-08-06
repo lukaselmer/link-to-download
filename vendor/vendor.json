@@ -9,6 +9,36 @@
 			"revisionTime": "2017-08-04T20:32:47Z"
 		},
 		{
+			"checksumSHA1": "HFGrR1N5ZOmbKlyqtz9Um/n9WJ0=",
+			"path": "github.com/aws/aws-sdk-go/aws",
+			"revision": "07a12acf062c74aacf99ed8a6a4ee1bc52ab1627",
+			"revisionTime": "2017-08-04T20:32:47Z"
+		},
+		{
+			"checksumSHA1": "Y9W+4GimK4Fuxq+vyIskVYFRnX4=",
+			"path": "github.com/aws/aws-sdk-go/aws/awserr",
+			"revision": "07a12acf062c74aacf99ed8a6a4ee1bc52ab1627",
+			"revisionTime": "2017-08-04T20:32:47Z"
+		},
+		{
+			"checksumSHA1": "Y+cPwQL0dZMyqp3wI+KJWmA9KQ8=",
+			"path": "github.com/aws/aws-sdk-go/aws/credentials",
+			"revision": "07a12acf062c74aacf99ed8a6a4ee1bc52ab1627",
+			"revisionTime": "2017-08-04T20:32:47Z"
+		},
+		{
+			"checksumSHA1": "W45tSKW4ZVgBk9H4lx5RbGi9OVg=",
+			"path": "github.com/aws/aws-sdk-go/aws/endpoints",
+			"revision": "07a12acf062c74aacf99ed8a6a4ee1bc52ab1627",
+			"revisionTime": "2017-08-04T20:32:47Z"
+		},
+		{
+			"checksumSHA1": "04ypv4x12l4q0TksA1zEVsmgpvw=",
+			"path": "github.com/aws/aws-sdk-go/internal/shareddefaults",
+			"revision": "07a12acf062c74aacf99ed8a6a4ee1bc52ab1627",
+			"revisionTime": "2017-08-04T20:32:47Z"
+		},
+		{
 			"checksumSHA1": "Qq7Gzany1n6gK6hpZQq9UXFhGGo=",
 			"comment": "v1.0rc1-110-g4cc2de6",
 			"path": "github.com/gin-gonic/gin",
@@ -25,6 +55,12 @@
 			"comment": "v1.0rc1-110-g4cc2de6",
 			"path": "github.com/gin-gonic/gin/render",
 			"revision": "4cc2de6207f4128624cbdd16be30f64966c67c08"
+		},
+		{
+			"checksumSHA1": "Ecn0UexWoWRG6Di0wdWvIfms/jc=",
+			"path": "github.com/go-ini/ini",
+			"revision": "3d73f4b845efdf9989fffd4b4e562727744a34ba",
+			"revisionTime": "2017-06-27T23:12:24Z"
 		},
 		{
 			"checksumSHA1": "0PYW8zyGI0iZzb5xxZw+veCjgFM=",
