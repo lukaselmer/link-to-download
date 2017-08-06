@@ -19,7 +19,7 @@ heroku open
 
 ### Store File
 
-<http://link-to-download.dev:3000/store?api_key=__API_KEY__&url=https://__FILE_URL-ending-with-.pdf__>
+<http://link-to-download.dev:3000/store?api_key={{API_KEY}}&url=https://{{FILE_URL-ending-with-.pdf}}>
 
 Result:
 
