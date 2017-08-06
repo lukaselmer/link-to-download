@@ -3,6 +3,12 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "zLkfCk6MZzm+rnsD2ZFugIuwmig=",
+			"path": "github.com/aws/aws-sdk-go",
+			"revision": "07a12acf062c74aacf99ed8a6a4ee1bc52ab1627",
+			"revisionTime": "2017-08-04T20:32:47Z"
+		},
+		{
 			"checksumSHA1": "Qq7Gzany1n6gK6hpZQq9UXFhGGo=",
 			"comment": "v1.0rc1-110-g4cc2de6",
 			"path": "github.com/gin-gonic/gin",
