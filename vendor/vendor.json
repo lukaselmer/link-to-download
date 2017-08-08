@@ -1,11 +1,11 @@
 {
+	"comment": "",
 	"heroku": {
 		"goVersion": "go1.8.3",
 		"install": [
 			"."
 		]
 	},
-	"comment": "",
 	"ignore": "test",
 	"package": [
 		{
@@ -201,6 +201,18 @@
 			"revisionTime": "2017-07-05T04:31:29Z"
 		},
 		{
+			"checksumSHA1": "ZAj/o03zG8Ui4mZ4XmzU4yyKC04=",
+			"path": "github.com/lib/pq",
+			"revision": "dd1fe2071026ce53f36a39112e645b4d4f5793a4",
+			"revisionTime": "2017-07-07T05:36:02Z"
+		},
+		{
+			"checksumSHA1": "q5SZBWFVC3wOIzftf+l/h5WLG1k=",
+			"path": "github.com/lib/pq/oid",
+			"revision": "dd1fe2071026ce53f36a39112e645b4d4f5793a4",
+			"revisionTime": "2017-07-07T05:36:02Z"
+		},
+		{
 			"checksumSHA1": "ZUOd8OUOp+xdpB7p4w/O86Y8wyc=",
 			"path": "github.com/manucorporat/sse",
 			"revision": "c142f0f1baea5cef7f98a8a6c222f6134368c1f5"
@@ -227,5 +239,5 @@
 			"revision": "d627af88ac021317a280d320986282a6dc97549a"
 		}
 	],
-	"rootPath": "github.com/heroku/go-getting-started"
+	"rootPath": "github.com/lukaselmer/link-to-download"
 }
