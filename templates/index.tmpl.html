@@ -15,6 +15,33 @@
       <a type="button" class="btn btn-lg btn-primary" href="https://github.com/lukaselmer/link-to-download"><span class="glyphiconglyphicon-download"></span> Source on GitHub</a>
     </div>
   </div>
+
+  <div class="container">
+    {{ if . }}
+    <h1>Uploaded Files</h1>
+    <ul class="list-group">
+      {{ range . }}
+      <li class="list-group-item">
+        <h4>
+          <a href="{{ .ID | persistentLink }}">
+            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+          </a> {{ .Filename }}
+        </h4>
+        <p>Downloaded at {{ .CreatedAt }} from {{ .OriginURL }}</p>
+
+      </li>
+      {{ end }}
+    </ul>
+    {{else}}
+      <form class="form-inline text-center" action="/">
+        <div class="form-group">
+          <label class="sr-only" for="apiKeyInput">API Key</label>
+          <input name="api_key" type="text" class="form-control" id="apiKeyInput" placeholder="API Key">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </form>
+      {{ end }}
+  </div>
 </body>
 
 </html>

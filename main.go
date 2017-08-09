@@ -3,10 +3,12 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"regexp"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -59,18 +61,53 @@ func initDB() {
 func startServer() {
 	router := gin.New()
 	router.Use(gin.Logger())
-	router.LoadHTMLGlob("templates/*.tmpl.html")
-	router.Static("/static", "static")
-
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+	router.SetFuncMap(template.FuncMap{
+		"persistentLink": persistentLink,
 	})
+	router.LoadHTMLGlob("templates/*.tmpl.html")
 
+	router.Static("/static", "static")
+	router.GET("/", handleIndex)
 	router.GET("/download/:filename", downloadHandler)
 	router.GET("/store", storeHandler)
 	router.POST("/store-from-text", storeFromTextHandler)
 
 	router.Run(":" + os.Getenv("PORT"))
+}
+
+func handleIndex(c *gin.Context) {
+	if os.Getenv("API_KEY") == c.Query("api_key") {
+		rows, err := db.Query("SELECT * FROM files ORDER BY id DESC")
+		if err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("Error reading files from db: %q", err))
+			return
+		}
+		defer rows.Close()
+
+		type DownloadedFile struct {
+			ID        int
+			OriginURL string
+			Filename  string
+			CreatedAt time.Time
+		}
+		var downloadedFiles []DownloadedFile
+
+		for rows.Next() {
+			var downloadedFile DownloadedFile
+			if err := rows.Scan(
+				&downloadedFile.ID,
+				&downloadedFile.OriginURL,
+				&downloadedFile.Filename,
+				&downloadedFile.CreatedAt); err != nil {
+				c.String(http.StatusInternalServerError, fmt.Sprintf("Error scanning downloadedFile: %q", err))
+				return
+			}
+			downloadedFiles = append(downloadedFiles, downloadedFile)
+		}
+		c.HTML(http.StatusOK, "index.tmpl.html", downloadedFiles)
+	} else {
+		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+	}
 }
 
 func downloadHandler(c *gin.Context) {

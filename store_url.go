@@ -137,7 +137,9 @@ func uploadToS3(id int) error {
 	fileBytes := bytes.NewReader(buffer)
 	fileType := http.DetectContentType(buffer)
 
-	path := fmt.Sprintf("files/%d.pdf", id)
+	// To avoid one url leak to compromise all files, it would be wise
+	// to hash the id and the api key to generate a unique path
+	path := fmt.Sprintf("files/%s/%d.pdf", os.Getenv("API_KEY"), id)
 	params := &s3.PutObjectInput{
 		Bucket:        aws.String(os.Getenv("AWS_BUCKET")),
 		Key:           aws.String(path),
@@ -159,6 +161,6 @@ func temporaryLink(id int) string {
 }
 
 func persistentLink(id int) string {
-	return fmt.Sprintf("https://s3-%s.amazonaws.com/%s/files/%d.pdf",
-		os.Getenv("AWS_REGION"), os.Getenv("AWS_BUCKET"), id)
+	return fmt.Sprintf("https://s3-%s.amazonaws.com/%s/files/%s/%d.pdf",
+		os.Getenv("AWS_REGION"), os.Getenv("AWS_BUCKET"), os.Getenv("API_KEY"), id)
 }
