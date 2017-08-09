@@ -23,9 +23,7 @@
       {{ range . }}
       <li class="list-group-item">
         <h4>
-          <a href="{{ .ID | persistentLink }}">
-            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-          </a> {{ .Filename }}
+          <a href="{{ .ID | persistentLink }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> {{ .Filename }}
         </h4>
         <p>Downloaded at {{ .CreatedAt }} from {{ .OriginURL }}</p>
 
