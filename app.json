@@ -1,14 +1,15 @@
 {
-  "name": "Start on Heroku: Go",
-  "description": "Go Getting Started Example App",
+  "name": "Link to Download",
+  "description": "Downloads and stores files on S3. Useful for links to public files with an expiry date",
   "keywords": [
     "getting-started",
     "go",
-    "sample",
-    "example"
+    "links",
+    "downloads",
+    "learning-project"
   ],
-  "image": "heroku/go:1.6",
-  "mount_dir": "src/github.com/heroku/go-getting-started",
-  "website": "http://github.com/heroku/go-getting-started",
-  "repository": "http://github.com/heroku/go-getting-started"
+  "image": "heroku/go:1.8",
+  "mount_dir": "src/github.com/lukaselmer/link-to-download",
+  "website": "http://github.com/lukaselmer/link-to-download",
+  "repository": "http://github.com/lukaselmer/link-to-download"
 }
