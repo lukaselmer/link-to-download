@@ -10,6 +10,12 @@
   ],
   "image": "heroku/go:1.8",
   "mount_dir": "src/github.com/lukaselmer/link-to-download",
-  "website": "http://github.com/lukaselmer/link-to-download",
-  "repository": "http://github.com/lukaselmer/link-to-download"
+  "website": "https://github.com/lukaselmer/link-to-download",
+  "repository": "https://github.com/lukaselmer/link-to-download",
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  }
 }
