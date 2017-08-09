@@ -18,6 +18,9 @@
       "size": "free"
     }
   },
+  "addons": [
+    "heroku-postgresql"
+  ],
   "env": {
     "API_KEY": {
       "generator": "secret"
