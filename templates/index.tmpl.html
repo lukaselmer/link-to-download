@@ -25,7 +25,7 @@
         <h4>
           <a href="{{ .ID | persistentLink }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a> {{ .Filename }}
         </h4>
-        <p>Downloaded at {{ .CreatedAt }} from {{ .OriginURL }}</p>
+        <p>Downloaded at <i>{{ .CreatedAt.Format "2006-01-02 15:04:05" }}</i> from <i>{{ .OriginURL }}</i></p>
       </li>
       {{ end }}
     </ul>
