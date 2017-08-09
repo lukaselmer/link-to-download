@@ -2,22 +2,9 @@
 {{template "header.tmpl.html"}}
 
 <body>
-  {{template "nav.tmpl.html"}}
-
-  <div class="jumbotron text-center">
-    <div class="container">
-      <a href="/" class="lang-logo">
-      <img src="/static/lang-logo.png">
-    </a>
-      <h1>Link to Download</h1>
-      <p>Downloads and stores files on S3. Useful for links to public files with an expiry date.</p>
-      <a type="button" class="btn btn-lg btn-default" href="https://github.com/lukaselmer/link-to-download/blob/master/README.md"><span class="glyphiconglyphicon-flash"></span> Readme</a>
-      <a type="button" class="btn btn-lg btn-primary" href="https://github.com/lukaselmer/link-to-download"><span class="glyphiconglyphicon-download"></span> Source on GitHub</a>
-    </div>
-  </div>
+  {{template "nav.tmpl.html"}} {{template "jumbotron.tmpl.html"}}
 
   <div class="container">
-    {{ if . }}
     <h1>Uploaded Files</h1>
     <ul class="list-group">
       {{ range . }}
@@ -29,15 +16,6 @@
       </li>
       {{ end }}
     </ul>
-    {{else}}
-      <form class="form-inline text-center" action="/">
-        <div class="form-group">
-          <label class="sr-only" for="apiKeyInput">API Key</label>
-          <input name="api_key" type="text" class="form-control" id="apiKeyInput" placeholder="API Key">
-        </div>
-        <button type="submit" class="btn btn-primary">Sign in</button>
-      </form>
-      {{ end }}
   </div>
 </body>
 

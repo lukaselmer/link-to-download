@@ -59,14 +59,16 @@ func initDB() {
 }
 
 func startServer() {
-	router := gin.New()
-	router.Use(gin.Logger())
+	router := gin.Default()
 	router.SetFuncMap(template.FuncMap{
 		"persistentLink": persistentLink,
 	})
 	router.LoadHTMLGlob("templates/*.tmpl.html")
 
 	router.Static("/static", "static")
+	router.GET("/sign_in", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "sign_in.tmpl.html", nil)
+	})
 	router.GET("/", handleIndex)
 	router.GET("/download/:filename", downloadHandler)
 	router.GET("/store", storeHandler)
@@ -76,38 +78,39 @@ func startServer() {
 }
 
 func handleIndex(c *gin.Context) {
-	if os.Getenv("API_KEY") == c.Query("api_key") {
-		rows, err := db.Query("SELECT * FROM files ORDER BY id DESC")
-		if err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("Error reading files from db: %q", err))
+	if os.Getenv("API_KEY") != c.Query("api_key") {
+		c.Redirect(http.StatusTemporaryRedirect, "/sign_in")
+		return
+	}
+
+	rows, err := db.Query("SELECT * FROM files ORDER BY id DESC")
+	if err != nil {
+		c.String(http.StatusInternalServerError, fmt.Sprintf("Error reading files from db: %q", err))
+		return
+	}
+	defer rows.Close()
+
+	type DownloadedFile struct {
+		ID        int
+		OriginURL string
+		Filename  string
+		CreatedAt time.Time
+	}
+	var downloadedFiles []DownloadedFile
+
+	for rows.Next() {
+		var downloadedFile DownloadedFile
+		if err := rows.Scan(
+			&downloadedFile.ID,
+			&downloadedFile.OriginURL,
+			&downloadedFile.Filename,
+			&downloadedFile.CreatedAt); err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("Error scanning downloadedFile: %q", err))
 			return
 		}
-		defer rows.Close()
-
-		type DownloadedFile struct {
-			ID        int
-			OriginURL string
-			Filename  string
-			CreatedAt time.Time
-		}
-		var downloadedFiles []DownloadedFile
-
-		for rows.Next() {
-			var downloadedFile DownloadedFile
-			if err := rows.Scan(
-				&downloadedFile.ID,
-				&downloadedFile.OriginURL,
-				&downloadedFile.Filename,
-				&downloadedFile.CreatedAt); err != nil {
-				c.String(http.StatusInternalServerError, fmt.Sprintf("Error scanning downloadedFile: %q", err))
-				return
-			}
-			downloadedFiles = append(downloadedFiles, downloadedFile)
-		}
-		c.HTML(http.StatusOK, "index.tmpl.html", downloadedFiles)
-	} else {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+		downloadedFiles = append(downloadedFiles, downloadedFile)
 	}
+	c.HTML(http.StatusOK, "index.tmpl.html", downloadedFiles)
 }
 
 func downloadHandler(c *gin.Context) {
