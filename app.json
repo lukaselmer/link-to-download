@@ -17,5 +17,28 @@
       "quantity": 1,
       "size": "free"
     }
+  },
+  "env": {
+    "API_KEY": {
+      "generator": "secret"
+    },
+    "AWS_ACCESS_KEY_ID": {
+      "required": true
+    },
+    "AWS_BUCKET": {
+      "required": true
+    },
+    "AWS_REGION": {
+      "required": true
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "BASE_URL": {
+      "required": true
+    },
+    "GIN_MODE": {
+      "required": true
+    }
   }
 }
