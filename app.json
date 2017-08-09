@@ -23,7 +23,7 @@
   ],
   "env": {
     "API_KEY": {
-      "generator": "secret"
+      "required": true
     },
     "AWS_ACCESS_KEY_ID": {
       "required": true
